@@ -96,3 +96,15 @@ func TestSetEqual(t *testing.T) {
 	assert.True(t, set1.Equal(set2))
 	assert.True(t, Empty().Equal(Empty()))
 }
+
+func TestSetRemove(t *testing.T) {
+	set1 := FromSlice([]string{
+		"foo", "bar", "baz",
+	})
+	assert.True(t, set1.Contains("foo"))
+	assert.True(t, set1.Remove("foo"))
+	assert.False(t, set1.Contains("foo"))
+
+	empty := Empty()
+	assert.False(t, empty.Remove("no-value"))
+}

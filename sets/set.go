@@ -9,6 +9,7 @@ type Set interface {
 	IsSupersetOf(another Set) bool
 	Equal(another Set) bool
 	Size() int
+	Remove(elem string) bool
 	Values() []string
 }
 
@@ -82,6 +83,14 @@ func (s *MapSet) Equal(another Set) bool {
 			found = found && s.Contains(elem)
 		}
 	}
+	return found
+}
+
+// Remove an element if it exists in the Set
+// Returns if the value was present and removed
+func (s *MapSet) Remove(elem string) bool {
+	found := s.Contains(elem)
+	delete(s._data, elem)
 	return found
 }
 
