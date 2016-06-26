@@ -11,3 +11,4 @@ Collection of some reusable code I've written or got inspired from all under one
 | sets  | [![GoDoc](https://godoc.org/github.com/ashwanthkumar/golang-utils/sets?status.svg)](https://godoc.org/github.com/ashwanthkumar/golang-utils/sets) |
 | netutil  | [![GoDoc](https://godoc.org/github.com/ashwanthkumar/golang-utils/netutil?status.svg)](https://godoc.org/github.com/ashwanthkumar/golang-utils/netutil) |
 | io  | [![GoDoc](https://godoc.org/github.com/ashwanthkumar/golang-utils/io?status.svg)](https://godoc.org/github.com/ashwanthkumar/golang-utils/io) |
+| worker  | [![GoDoc](https://godoc.org/github.com/ashwanthkumar/golang-utils/worker?status.svg)](https://godoc.org/github.com/ashwanthkumar/golang-utils/worker) |
