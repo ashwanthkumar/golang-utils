@@ -8,8 +8,9 @@ import (
 
 // Pool is a wrapper to manage a set of Workers efficiently
 type Pool struct {
-	MaxWorkers  int
-	Op          func(Request) error
+	MaxWorkers int
+	Op         func(Request) error
+
 	workers     []Worker
 	items       chan Request
 	itemsMarker sync.WaitGroup
@@ -54,4 +55,9 @@ func (pool *Pool) Join() error {
 
 	close(pool.errs)
 	return pool.finalError
+}
+
+// Wait similar to Join, but the pool is still usable after this
+func (pool *Pool) Wait() {
+	pool.itemsMarker.Wait()
 }
