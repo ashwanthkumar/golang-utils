@@ -27,8 +27,8 @@ func (pool *Pool) Initialize() {
 		var result = *combined
 		for err := range pool.errs {
 			result = multierror.Append(result, err)
+			combined = &result
 		}
-		combined = &result
 	}(&pool.finalError)
 }
 
@@ -58,6 +58,7 @@ func (pool *Pool) Join() error {
 }
 
 // Wait similar to Join, but the pool is still usable after this
-func (pool *Pool) Wait() {
+func (pool *Pool) Wait() error {
 	pool.itemsMarker.Wait()
+	return pool.finalError
 }
