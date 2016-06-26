@@ -1,3 +1,6 @@
 package: github.com/ashwanthkumar/golang-utils
 import:
 - package: github.com/hashicorp/go-multierror
+- package: github.com/stretchr/testify
+  subpackages:
+  - assert

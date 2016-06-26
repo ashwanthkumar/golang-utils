@@ -8,5 +8,4 @@ test-only:
 	go test -v -race github.com/ashwanthkumar/golang-utils/${name}
 
 setup:
-	# Test deps
-	go get -u github.com/stretchr/testify/assert
+	glide install
