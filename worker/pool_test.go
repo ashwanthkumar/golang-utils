@@ -1,7 +1,6 @@
 package worker
 
 import (
-	"log"
 	"sync/atomic"
 	"testing"
 
@@ -9,25 +8,6 @@ import (
 )
 
 type TestRequest struct{}
-
-func ExampleWorkerPool() {
-	var totalCounter int32
-	pool := Pool{
-		MaxWorkers: 1,
-		Op: func(req Request) error {
-			atomic.AddInt32(&totalCounter, 1)
-			return nil
-		},
-	}
-
-	pool.Initialize()
-	for counter := 0; counter < 5; counter++ {
-		pool.AddWork(TestRequest{})
-	}
-	if err := pool.Join(); err != nil {
-		log.Fatal(err)
-	}
-}
 
 func TestPoolDoesAllWork(t *testing.T) {
 	var totalCounter int32
@@ -38,7 +18,6 @@ func TestPoolDoesAllWork(t *testing.T) {
 			return nil
 		},
 	}
-
 	pool.Initialize()
 	for counter := 0; counter < 5; counter++ {
 		pool.AddWork(TestRequest{})
