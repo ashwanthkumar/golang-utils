@@ -5,19 +5,6 @@ import "sync"
 // Request Base type of all work objects
 type Request interface{}
 
-// RestoreWork struct contains source, destination and WAL for restore
-type RestoreWork struct {
-	Source      string
-	Destination string
-	WalDir      string
-}
-
-// BackupWork struct contains source and destination for backup
-type BackupWork struct {
-	Source      string
-	Destination string
-}
-
 // Worker for now
 type Worker struct {
 	Queue  chan Request
