@@ -51,3 +51,7 @@ func TestGetInt(t *testing.T) {
 	assert.Equal(t, 12345, GetInt(mapData, "valid-int", 123))
 	assert.Equal(t, 123, GetInt(mapData, "invalid-int", 123))
 }
+
+func TestContains(t *testing.T) {
+	assert.Equal(t, true, Contains(mapData, "key"))
+}

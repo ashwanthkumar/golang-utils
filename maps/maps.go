@@ -67,3 +67,8 @@ func GetInt(mapData map[string]string, key string, defaultValue int) int {
 	}
 	return defaultValue
 }
+
+func Contains(mapData map[string]string, key string) bool {
+	_, present := mapData[key]
+	return present
+}
