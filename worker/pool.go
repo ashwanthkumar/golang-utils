@@ -1,7 +1,7 @@
 package worker
 
 import (
-	"sync"
+	"github.com/ashwanthkumar/golang-utils/sync"
 
 	"github.com/hashicorp/go-multierror"
 )
@@ -13,15 +13,15 @@ type Pool struct {
 
 	workers     []Worker
 	items       chan Request
-	itemsMarker sync.WaitGroup
+	itemsMarker sync.CountWG
 	errs        chan error
 	finalError  error
 }
 
 // Initialize the pool
 func (pool *Pool) Initialize() {
-	pool.items = make(chan Request)
-	pool.errs = make(chan error)
+	pool.items = make(chan Request, pool.MaxWorkers)
+	pool.errs = make(chan error, pool.MaxWorkers)
 	// Error handler
 	go func(combined *error) {
 		var result = *combined
@@ -61,4 +61,19 @@ func (pool *Pool) Join() error {
 func (pool *Pool) Wait() error {
 	pool.itemsMarker.Wait()
 	return pool.finalError
+}
+
+// Count returns the sum of Pending() + ActiveCount()
+func (pool *Pool) Count() int {
+	return pool.Pending() + pool.ActiveCount()
+}
+
+// Pending returns the number of items still pending to be processed
+func (pool *Pool) Pending() int {
+	return len(pool.items)
+}
+
+// ActiveCount is the count of the workers who are active and doing work
+func (pool *Pool) ActiveCount() int {
+	return pool.itemsMarker.Count()
 }

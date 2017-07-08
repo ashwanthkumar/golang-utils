@@ -1,6 +1,6 @@
 package worker
 
-import "sync"
+import "github.com/ashwanthkumar/golang-utils/sync"
 
 // Request Base type of all work objects
 type Request interface{}
@@ -10,7 +10,7 @@ type Worker struct {
 	Queue  chan Request
 	Errs   chan error
 	Op     func(Request) error
-	Marker *sync.WaitGroup
+	Marker *sync.CountWG
 }
 
 // Start a worker
