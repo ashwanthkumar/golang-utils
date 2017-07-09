@@ -28,13 +28,15 @@ func NewCountWG() *CountWG {
 func (wg *CountWG) Add(delta int) {
 	d := int64(delta)
 	wg.wg.Add(delta)
-	atomic.AddInt64(&wg.counter, d)
+	swapped := false
+	for !swapped {
+		swapped = atomic.CompareAndSwapInt64(&wg.counter, wg.counter, wg.counter+d)
+	}
 }
 
 // Wait blocks until the CountWG counter is zero.
 func (wg *CountWG) Wait() {
 	wg.wg.Wait()
-	atomic.StoreInt64(&wg.counter, 0)
 }
 
 // Done decrements the CountWG counter.
@@ -44,5 +46,5 @@ func (wg *CountWG) Done() {
 
 // Count returns the counter associated with this CountWG
 func (wg *CountWG) Count() int {
-	return int(wg.counter)
+	return int(atomic.LoadInt64(&wg.counter))
 }
