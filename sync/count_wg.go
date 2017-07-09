@@ -30,7 +30,7 @@ func (wg *CountWG) Add(delta int) {
 	wg.wg.Add(delta)
 	swapped := false
 	for !swapped {
-		swapped = atomic.CompareAndSwapInt64(&wg.counter, wg.counter, wg.counter+d)
+		swapped = atomic.CompareAndSwapInt64(&wg.counter, atomic.LoadInt64(&wg.counter), atomic.LoadInt64(&wg.counter)+d)
 	}
 }
 
